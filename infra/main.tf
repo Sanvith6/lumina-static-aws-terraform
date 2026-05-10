@@ -12,11 +12,11 @@ terraform {
   }
 
   # Note: In a real enterprise scenario, backend would be configured here
-  # backend "s3" {
-  #   bucket = "terraform-state-lumina"
-  #   key    = "prod/static-site/terraform.tfstate"
-  #   region = "us-east-1"
-  # }
+  backend "s3" {
+    bucket = "lumina-tf-state-pya8p8"
+    key    = "prod/static-site/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
