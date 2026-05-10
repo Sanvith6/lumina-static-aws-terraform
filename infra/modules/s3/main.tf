@@ -106,7 +106,7 @@ resource "aws_s3_bucket_acl" "logging" {
   depends_on = [aws_s3_bucket_ownership_controls.logging]
 
   bucket = aws_s3_bucket.logging.id
-  acl    = "private"
+  acl    = "log-delivery-write"
 }
 
 # Modern way to enable S3 logging: Use Bucket Policy instead of legacy ACLs
