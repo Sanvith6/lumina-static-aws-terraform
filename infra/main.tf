@@ -42,11 +42,12 @@ module "waf" {
 
 # 2. CloudFront Module (Depends on WAF)
 module "cloudfront" {
-  source                         = "./modules/cloudfront"
-  name_prefix                    = local.project_id
-  s3_bucket_regional_domain_name = module.s3.bucket_regional_domain_name
-  waf_arn                        = module.waf.waf_arn
-  tags                           = var.common_tags
+  source                              = "./modules/cloudfront"
+  name_prefix                         = local.project_id
+  s3_bucket_regional_domain_name      = module.s3.bucket_regional_domain_name
+  logging_bucket_regional_domain_name = module.s3.logging_bucket_regional_domain_name
+  waf_arn                             = module.waf.waf_arn
+  tags                                = var.common_tags
 }
 
 # 3. S3 Module (Depends on CloudFront for OAC Policy)

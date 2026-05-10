@@ -71,6 +71,12 @@ resource "aws_cloudfront_distribution" "this" {
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers.id
   }
 
+  logging_config {
+    include_cookies = false
+    bucket          = var.logging_bucket_regional_domain_name
+    prefix          = "cloudfront/"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -79,6 +85,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
+    minimum_protocol_version       = "TLSv1.2_2021"
   }
 
   tags = var.tags

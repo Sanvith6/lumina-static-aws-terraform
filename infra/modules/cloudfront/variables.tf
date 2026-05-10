@@ -19,3 +19,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "logging_bucket_regional_domain_name" {
+  description = "Regional domain name of the S3 bucket for CloudFront logs"
+  type        = string
+  default     = null
+}
