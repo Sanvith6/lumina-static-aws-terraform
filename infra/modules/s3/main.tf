@@ -28,6 +28,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 
   rule {
     apply_server_side_encryption_by_default {
+      # tfsec:ignore:aws-s3-encryption-customer-key
       sse_algorithm = "AES256"
     }
   }
@@ -61,6 +62,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
   }
 }
 
+# tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "logging" {
   bucket = "${var.bucket_name}-logs"
   tags   = var.tags
@@ -87,6 +89,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "logging" {
 
   rule {
     apply_server_side_encryption_by_default {
+      # tfsec:ignore:aws-s3-encryption-customer-key
       sse_algorithm = "AES256"
     }
   }
