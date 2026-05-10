@@ -1,0 +1,58 @@
+name: Infrastructure & App Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
+      PROJECT_NAME: lumina-static
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+
+      - name: Terraform Init & Plan
+        working-directory: ./infra
+        run: |
+          terraform init
+          terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./infra
+        run: terraform apply -auto-approve tfplan
+
+      - name: Get Infrastructure Outputs
+        id: tf_outputs
+        working-directory: ./infra
+        run: |
+          echo "BUCKET_NAME=$(terraform output -raw s3_bucket_name)" >> $GITHUB_ENV
+          echo "DIST_ID=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_ENV
+
+      - name: Sync App to S3
+        run: |
+          aws s3 sync ./app s3://${{ env.BUCKET_NAME }} --delete --cache-control "max-age=31536000"
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ env.DIST_ID }} --paths "/*"

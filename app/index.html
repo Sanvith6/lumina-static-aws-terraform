@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina | High-Performance Cloud & DevOps Portfolio</title>
+    <meta name="description" content="Lumina is a showcase of production-grade Cloud & DevOps Engineering solutions. Expert in AWS, Terraform, CI/CD, and Security.">
+    <meta name="keywords" content="DevOps, AWS, Terraform, Cloud Engineering, S3, CloudFront, WAF">
+    <meta name="author" content="Lumina Static">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="scroll-progress"></div>
+    <div class="glow-bg"></div>
+    
+    <nav class="glass-nav">
+        <div class="container">
+            <div class="logo">LUMINA<span>.STATIC</span></div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="badge">SECURE. SCALABLE. AUTOMATED.</div>
+            <h1>Building the Future of <span class="gradient-text">Cloud Infrastructure</span></h1>
+            <p class="hero-sub">Senior DevOps Engineering with a focus on reliability, security, and enterprise-grade automation.</p>
+            <div class="cta-group">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Current Architecture</h2>
+            <div class="project-grid">
+                <div class="card glass">
+                    <div class="card-icon">☁️</div>
+                    <h3>Global Edge Hosting</h3>
+                    <p>Leveraging AWS CloudFront and S3 for sub-100ms global latency and 99.99% availability.</p>
+                </div>
+                <div class="card glass">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Advanced Security</h3>
+                    <p>AWS WAF integration with managed rulesets and OAC for zero-public S3 access.</p>
+                </div>
+                <div class="card glass">
+                    <div class="card-icon">⚙️</div>
+                    <h3>GitOps Automation</h3>
+                    <p>Fully automated CI/CD pipelines using GitHub Actions and Terraform for seamless deployments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Lumina Static. Built with precision and passion for cloud excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Subtle interaction: Parallax effect for glow background
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.glow-bg');
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            glow.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(99, 102, 241, 0.15) 0%, transparent 50%)`;
+        });
+
+        // Scroll Progress indicator
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector(".scroll-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>

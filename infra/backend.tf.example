@@ -1,0 +1,16 @@
+# Example: Configuring S3 Remote State with DynamoDB Locking
+# 1. Create an S3 bucket for state (e.g., terraform-state-lumina)
+# 2. Create a DynamoDB table with Partition Key: LockID (String)
+# 3. Uncomment and update the block below in infra/main.tf
+
+/*
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-lumina"
+    key            = "prod/static-site/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}
+*/
